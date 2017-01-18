@@ -50,8 +50,11 @@ namespace CSAuthorAngular2InASPNetCore
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            #region static files 
             app.UseStaticFiles();
+            #endregion
 
+            #region route
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -62,6 +65,7 @@ namespace CSAuthorAngular2InASPNetCore
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
             });
+            #endregion
         }
     }
 }
