@@ -8,7 +8,7 @@ import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 
 @NgModule({
-    bootstrap: [ AppComponent ],
+    bootstrap: [ AppComponent],
     declarations: [
         AppComponent,
         NavMenuComponent,
