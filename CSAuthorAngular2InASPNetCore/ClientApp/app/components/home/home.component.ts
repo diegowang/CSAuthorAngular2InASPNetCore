@@ -16,13 +16,13 @@ export class HomeComponent {
         private authService: AuthService
     ) { }
 
-    //ngOnInit(): void {
-    //    this.isLogin = this.authService.checkLogin();
-    //    if (this.isLogin) {
-    //        this.authService.getUserInfo().then(res => {
-    //            this.userName = (res.Data as any).UserName;
-    //        });
-    //    }
+    ngOnInit(): void {
+        this.isLogin = this.authService.checkLogin();
+        if (this.isLogin) {
+            this.authService.getUserInfo().then(res => {
+                this.userName = (res.Data as any).UserName;
+            });
+        }
 
-    //}
+    }
 }

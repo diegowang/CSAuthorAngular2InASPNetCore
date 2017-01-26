@@ -29,8 +29,10 @@ export class AuthService {
     }
 
     checkLogin(): boolean {
-        var token = sessionStorage.getItem(this.tokeyKey);
-        return token != null;
+        if (isBrowser) {
+            var token = sessionStorage.getItem(this.tokeyKey);
+            return token != null;
+        }
     }
 
     getUserInfo(): Promise<RequestResult> {
