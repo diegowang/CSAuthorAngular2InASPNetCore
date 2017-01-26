@@ -20,7 +20,7 @@ namespace CSAuthorAngular2InASPNetCore.Controllers
     public class TokenAuthController : Controller
     {
         [HttpPost]
-        public string GetAuthToken(User user)
+        public string GetAuthToken([FromBody]User user)
         {
             var existUser = UserStorage.Users.FirstOrDefault(u => u.Username == user.Username && u.Password == user.Password);
 
@@ -42,12 +42,16 @@ namespace CSAuthorAngular2InASPNetCore.Controllers
                     }
                 });
             }
-            return JsonConvert.SerializeObject(new RequestResult
+            else
             {
-                State = RequestState.Failed,
-                Msg = "Username or password is invalid"
-            });
+                return JsonConvert.SerializeObject(new RequestResult
+                {
+                    State = RequestState.Failed,
+                    Msg = "Username or password is invalid"
+                });
+            }
         }
+
         private string GenerateToken(User user, DateTime expires)
         {
             var handler = new JwtSecurityTokenHandler();
@@ -55,7 +59,7 @@ namespace CSAuthorAngular2InASPNetCore.Controllers
             ClaimsIdentity identity = new ClaimsIdentity(
                 new GenericIdentity(user.Username, "TokenAuth"),
                 new[] {
-            new Claim("ID", user.ID.ToString())
+                    new Claim("ID", user.ID.ToString())
                 }
             );
 
@@ -90,16 +94,18 @@ namespace CSAuthorAngular2InASPNetCore.Controllers
     public class User
     {
         public Guid ID { get; set; }
+
         public string Username { get; set; }
+
         public string Password { get; set; }
     }
 
     public static class UserStorage
     {
         public static List<User> Users { get; set; } = new List<User> {
-        new User {ID=Guid.NewGuid(),Username="user1",Password = "user1psd" },
-        new User {ID=Guid.NewGuid(),Username="user2",Password = "user2psd" },
-        new User {ID=Guid.NewGuid(),Username="user3",Password = "user3psd" }
-    };
+            new User {ID=Guid.NewGuid(),Username="user1",Password = "user1psd" },
+            new User {ID=Guid.NewGuid(),Username="user2",Password = "user2psd" },
+            new User {ID=Guid.NewGuid(),Username="user3",Password = "user3psd" }
+        };
     }
 }
