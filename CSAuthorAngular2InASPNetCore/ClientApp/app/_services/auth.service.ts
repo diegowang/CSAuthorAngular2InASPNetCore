@@ -17,11 +17,15 @@ export class AuthService {
     login(userName: string, password: string): Promise<RequestResult> {
         return this.http.post("/api/TokenAuth", { Username: userName, Password: password }).toPromise()
             .then(response => {
+                console.log(userName);
                 let result = response.json() as RequestResult;
+                
                 if (result.State == 1) {
                     let json = result.Data as any;
-
-                    sessionStorage.setItem("token", json.accessToken);
+                    if (isBrowser) {
+                        sessionStorage.setItem("token", json.accessToken);
+                    }
+                    
                 }
                 return result;
             })
