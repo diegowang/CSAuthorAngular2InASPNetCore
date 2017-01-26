@@ -5,9 +5,8 @@ import { AuthService } from "../../_services/auth.service";
 
 @Component({
     moduleId: module.id,
-    selector: "my-login",
+    selector: "login",
     template: require('./login.component.html'),
-    styles: [require('./login.component.css')],
     providers: [AuthService]
 })
 export class LoginComponent {
