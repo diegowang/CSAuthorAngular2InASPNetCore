@@ -1,5 +1,6 @@
 ﻿import { Injectable } from "@angular/core";
 import { Headers, Http } from "@angular/http";
+import { isBrowser } from 'angular2-universal';
 import "rxjs/add/operator/toPromise";
 
 import { RequestResult } from "../_model/RequestResult";
